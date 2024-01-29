@@ -22,4 +22,12 @@ do about every 4-5 years, it is a huge time sink and pain to scrape together a d
 travel history for the last 4-5 years. Not only will this project help me the next time I have
 to fill out the PR renewal application, hopefully it will also help others in the same position!
 
+---
+
+### User Stories
+
++ As a user, I want to be able to add a travel entry to my travel journal and specify the departure date, return date, destination, and reason
++ As a user, I want to be able to view a list of travel entries in my travel journal
++ As a user, I want to be able to delete a travel entry from my travel journal
++ As a user, I want to be able to select and edit a travel entry from my travel journal 
 
