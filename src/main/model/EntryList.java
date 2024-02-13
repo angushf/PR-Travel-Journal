@@ -38,12 +38,12 @@ public class EntryList {
     // REQUIRES: an entryID > 0 and one that exists
     // MODIFIES: this
     // EFFECTS: edits entry with given entryID from journal
-    public void editEntry(int entryID, Entry entry) {
+    public void editEntry(int entryID, String dep, String ret, String dest, String reason) {
         Entry e = retrieveEntryByID(entryID);
-        e.setDepartureDate(entry.getDepartureDate());
-        e.setReturnDate(entry.getReturnDate());
-        e.setDestination(entry.getDestination());
-        e.setReason(entry.getReason());
+        e.setDepartureDate(dep);
+        e.setReturnDate(ret);
+        e.setDestination(dest);
+        e.setReason(reason);
     }
 
     // EFFECTS: returns number of entries in journal

@@ -95,7 +95,7 @@ public class EntryListTest {
     @Test
     public void testEditEntry() {
         testEntryList.addEntry(entry1);
-        testEntryList.editEntry(1, entry2);
+        testEntryList.editEntry(1, entry2.getDepartureDate(), entry2.getReturnDate(), entry2.getDestination(), entry2.getReason());
         assertEquals(entry2.getDepartureDate(), entry1.getDepartureDate());
         assertEquals(entry2.getReturnDate(), entry1.getReturnDate());
         assertEquals(entry2.getDestination(), entry1.getDestination());
