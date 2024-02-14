@@ -5,6 +5,7 @@ import model.EntryList;
 import java.util.Scanner;
 
 // Travel Journal application
+// Some of this code/structure was used from the BankTeller app JFYI!
 public class TravelJournalApp {
     private EntryList journal;
     private Scanner input;
