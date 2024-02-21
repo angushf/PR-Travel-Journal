@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a single entry in a Travel Journal.
 // When a new entry is instantiated, it is given a
 // departure date, return date, destination, reason, and an entry ID.
 // NOTE: it will also increment the totalEntries counter in the class.
-public class Entry {
+public class Entry implements Writable {
     private String departureDate;
     private String returnDate;
     private String destination;
@@ -66,5 +69,17 @@ public class Entry {
                 + " Return Date: " + this.getReturnDate() + "\n"
                 + " Destination: " + this.getDestination() + "\n"
                 + " Reason: "      + this.getReason() + "\n";
+    }
+
+    // NOTE: source: JsonSerializationDemo
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("departure date", this.departureDate);
+        json.put("return date", this.returnDate);
+        json.put("destination", this.destination);
+        json.put("reason", this.reason);
+        //json.put("entry ID", entryID);
+        return json;
     }
 }

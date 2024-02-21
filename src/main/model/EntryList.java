@@ -1,11 +1,17 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 
 // Represents a Journal that stores Entries of absences from
 // the country. When instantiated, EntryList will create an empty List
 // that will store all of its entries.
-public class EntryList {
+public class EntryList implements Writable {
     private ArrayList<Entry> journal;
 
     public EntryList() {
@@ -16,6 +22,11 @@ public class EntryList {
     // EFFECTS: adds entry object to journal
     public void addEntry(Entry entry) {
         journal.add(entry);
+    }
+
+    // EFFECTS: returns a list of entries in journal
+    public List<Entry> getEntries() {
+        return this.journal;
     }
 
     // EFFECTS: returns all entries in journal
@@ -60,6 +71,26 @@ public class EntryList {
             }
         }
         return null;
+    }
+
+    // NOTE: source: JsonSerializationDemo
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("entries", entriesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns entries in this travel journal as a JSON array
+    // NOTE: source: JsonSerializationDemo
+    private JSONArray entriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Entry e : journal) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
     }
 
 }
