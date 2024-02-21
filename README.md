@@ -30,4 +30,6 @@ to fill out the PR renewal application, hopefully it will also help others in th
 + As a user, I want to be able to view a list of travel entries in my travel journal
 + As a user, I want to be able to delete a travel entry from my travel journal
 + As a user, I want to be able to select and edit a travel entry from my travel journal 
++ As a user, I want to be able to save my travel journal to file (if I so choose)
++ As a user, I want to be able to load my travel journal from file (if I so choose)
 
