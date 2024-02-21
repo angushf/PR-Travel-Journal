@@ -1,0 +1,14 @@
+{"entries": [
+    {
+        "reason": "Pleasure",
+        "return date": "2023-09-01",
+        "destination": "USA",
+        "departure date": "2023-08-12"
+    },
+    {
+        "reason": "Business",
+        "return date": "2024-02-30",
+        "destination": "Germany",
+        "departure date": "2024-02-15"
+    }
+]}

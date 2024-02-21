@@ -4,13 +4,22 @@ import model.Entry;
 import model.EntryList;
 import java.util.Scanner;
 
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 // Travel Journal application
-// Some of this code/structure was used from the BankTeller app JFYI!
+// Some of this code/structure was used from the BankTeller/JsonSerializationDemo app JFYI!
 public class TravelJournalApp {
+    private static final String JSON_STORE = "./data/journal.json";
     private EntryList journal;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    public TravelJournalApp() {
+
+    public TravelJournalApp() throws FileNotFoundException {
         runTravelJournal();
     }
 
@@ -49,8 +58,35 @@ public class TravelJournalApp {
             editEntry();
         } else if (command.equals("v")) {
             viewEntries();
+        } else if (command.equals("s")) {
+            saveJournal();
+        } else if (command.equals("l")) {
+            loadJournal();
         } else {
             System.out.println("Selection not valid...");
+        }
+    }
+
+    // EFFECTS: saves the journal to file
+    private void saveJournal() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(journal);
+            jsonWriter.close();
+            System.out.println("Saved travel journal to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads journal from file
+    private void loadJournal() {
+        try {
+            journal = jsonReader.read();
+            System.out.println("Loaded travel journal from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
@@ -124,7 +160,9 @@ public class TravelJournalApp {
         System.out.println("\td -> Delete travel entry");
         System.out.println("\te -> Edit travel entry");
         System.out.println("\tv -> View travel entries");
-        System.out.println("\tq -> quit");
+        System.out.println("\ts -> Save journal to file");
+        System.out.println("\tl -> Load journal from file");
+        System.out.println("\tq -> Quit");
     }
 
     // MODIFIES: this
@@ -133,5 +171,7 @@ public class TravelJournalApp {
         journal = new EntryList();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 }
