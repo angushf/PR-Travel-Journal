@@ -78,6 +78,10 @@ public class Entry implements Writable {
         return this.entryID;
     }
 
+    public void setEntryID(int id) {
+        this.entryID = id;
+    }
+
     // EFFECTS: returns a printed & formatted entry row
     public String printEntry() {
         return "ID: " + this.getEntryID() + "\n"
