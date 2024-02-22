@@ -12,7 +12,7 @@ public class Entry implements Writable {
     private String returnDate;
     private String destination;
     private String reason;
-    static int totalEntries = 0;
+    private static int totalEntries = 0;
     private int entryID = totalEntries;
 
     public Entry(String depDate, String retDate, String des, String reason) {
@@ -24,7 +24,23 @@ public class Entry implements Writable {
         this.entryID += 1;
     }
 
+    public Entry(String depDate, String retDate, String des, String reason, int entryID) {
+        this.departureDate = depDate;
+        this.returnDate = retDate;
+        this.destination = des;
+        this.reason = reason;
+        this.entryID = entryID;
+    }
+
     // getters & setters
+
+    public static int getTotalEntries() {
+        return totalEntries;
+    }
+
+    public static void setTotalEntries(int num) {
+        totalEntries = num;
+    }
 
     public String getDepartureDate() {
         return this.departureDate;
@@ -79,7 +95,7 @@ public class Entry implements Writable {
         json.put("return date", this.returnDate);
         json.put("destination", this.destination);
         json.put("reason", this.reason);
-        //json.put("entry ID", entryID);
+        json.put("entry ID", entryID);
         return json;
     }
 }

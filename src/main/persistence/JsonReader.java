@@ -51,6 +51,8 @@ public class JsonReader {
     // EFFECTS: parses entries from JSON object and adds them to EntryList
     private void addEntries(EntryList entryList, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("entries");
+        int totalEntries = jsonObject.getInt("totalEntries");
+        Entry.setTotalEntries(totalEntries);
         for (Object json : jsonArray) {
             JSONObject nextEntry = (JSONObject) json;
             addEntry(entryList, nextEntry);
@@ -64,10 +66,10 @@ public class JsonReader {
         String returnDate = jsonObject.getString("return date");
         String destination = jsonObject.getString("destination");
         String reason = jsonObject.getString("reason");
-        // int entryID = jsonObject.getInt("entry ID"); May need to create another constructor to pass on ID
-        // as ID is manually assigned on creation of Entries
+        int entryID = jsonObject.getInt("entry ID");
 
-        Entry entry = new Entry(departureDate, returnDate, destination, reason);
+
+        Entry entry = new Entry(departureDate, returnDate, destination, reason, entryID);
         entryList. addEntry(entry);
     }
 }

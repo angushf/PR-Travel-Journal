@@ -16,7 +16,7 @@ public class EntryListTest {
     public void setup() {
         testEntryList = new EntryList();
         // Reset Total Entries counter back to 0, otherwise tests fail
-        Entry.totalEntries = 0;
+        Entry.setTotalEntries(0);
         entry1 = new Entry("2023-02-12", "2023-02-24", "Argentina", "Pleasure");
         entry2 = new Entry("2023-06-01", "2023-07-01", "Germany", "Pleasure");
         entry3 = new Entry("2024-01-08", "2024-01-16", "San Francisco", "Business");

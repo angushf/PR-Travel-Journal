@@ -77,6 +77,7 @@ public class EntryList implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("totalEntries", Entry.getTotalEntries());
         json.put("entries", entriesToJson());
         return json;
     }

@@ -15,14 +15,14 @@ class EntryTest {
 
     @Test
     public void testConstructor() {
-        Entry.totalEntries = 0;
+        Entry.setTotalEntries(0);
         Entry testEntry2 = new Entry("2022-01-15", "2022-02-01", "London", "Business");
         assertEquals(1, testEntry2.getEntryID());
         assertEquals("2022-01-15", testEntry2.getDepartureDate());
         assertEquals("2022-02-01", testEntry2.getReturnDate());
         assertEquals("London", testEntry2.getDestination());
         assertEquals("Business", testEntry2.getReason());
-        assertEquals(1, Entry.totalEntries);
+        assertEquals(1, Entry.getTotalEntries());
     }
 
     @Test
