@@ -44,7 +44,7 @@ public class EntryList implements Writable {
     public void deleteEntry(int entryID) {
         Entry e = retrieveEntryByID(entryID);
         journal.remove(e);
-        Entry.setTotalEntries(Entry.getTotalEntries() - 1); // decrementing totalEntries by 1
+        Entry.setTotalEntries(Entry.getTotalEntries() - 1);
         for (int i = entryID - 1; i < journal.size(); i++) {
             int oldEntryID = journal.get(i).getEntryID();
             journal.get(i).setEntryID(oldEntryID - 1);
