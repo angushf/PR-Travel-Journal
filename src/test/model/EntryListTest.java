@@ -77,7 +77,7 @@ public class EntryListTest {
         assertEquals(entry2, testEntryList.retrieveEntryByID(2));
         testEntryList.deleteEntry(1);
         assertEquals(1, testEntryList.getNumItems());
-        assertEquals(entry2, testEntryList.retrieveEntryByID(2));
+        assertEquals(entry2, testEntryList.retrieveEntryByID(1));
     }
 
     // TESTS FOR retrieveEntryByID() METHOD
