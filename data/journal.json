@@ -1,26 +1,10 @@
 {
-    "entries": [
-        {
-            "reason": "sldkj",
-            "return date": "lkjsdf",
-            "destination": "sldkjf",
-            "departure date": "ljkljdsfljk",
-            "entry ID": 1
-        },
-        {
-            "reason": "lsdkjf",
-            "return date": "sdklfj",
-            "destination": "sldfkj",
-            "departure date": "lsjkdf",
-            "entry ID": 2
-        },
-        {
-            "reason": "lsdkjf",
-            "return date": "alkdjfl",
-            "destination": "sdlfjk",
-            "departure date": "lskjdf",
-            "entry ID": 3
-        }
-    ],
-    "totalEntries": 3
+    "entries": [{
+        "reason": "lksdjflkdsjflsdjkfd",
+        "return date": "slkdfjslfdksldfj",
+        "destination": "sdlkfjslkdfjsldjks",
+        "departure date": "lkjsfddslkjfslkkjfd",
+        "entry ID": 1
+    }],
+    "totalEntries": 1
 }
