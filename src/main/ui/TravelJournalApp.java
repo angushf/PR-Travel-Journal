@@ -2,6 +2,8 @@ package ui;
 
 import model.Entry;
 import model.EntryList;
+
+import java.awt.*;
 import java.util.Scanner;
 
 import persistence.JsonReader;
@@ -9,18 +11,98 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import java.awt.Color;
+
 // Travel Journal application
 // Some of this code/structure was used from the BankTeller/JsonSerializationDemo app JFYI!
-public class TravelJournalApp {
+public class TravelJournalApp extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/journal.json";
     private EntryList journal;
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-
     public TravelJournalApp() throws FileNotFoundException {
+        super("Main Menu");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        setPreferredSize(new Dimension(500, 500));
+        setVisible(true);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBounds(0,250, 500, 250);
+        buttonPanel.setBackground(new Color(61, 66, 64));
+        buttonPanel.setLayout(null);
+        buttonPanel.getAlignmentX();
+
+        JButton viewEntriesButton = new JButton("View Entries");
+        viewEntriesButton.setFocusable(false);
+        viewEntriesButton.setBounds(175, 10, 150, 50);
+        buttonPanel.add(viewEntriesButton);
+
+        initMenuBar();
+
+
+        add(buttonPanel);
+
+        pack();
+        centreOnScreen();
+
+
+
         runTravelJournal();
+    }
+
+    private void initMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+
+        JMenuItem loadItem = new JMenuItem("Load");
+        loadItem.setActionCommand("loadFile");
+        JMenuItem saveItem = new JMenuItem("Save");
+        saveItem.setActionCommand("saveFile");
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setActionCommand("exitApplication");
+
+        loadItem.addActionListener(this);
+        saveItem.addActionListener(this);
+        exitItem.addActionListener(this);
+
+        fileMenu.add(loadItem);
+        fileMenu.add(saveItem);
+        fileMenu.add(exitItem);
+
+        menuBar.add(fileMenu);
+
+        this.setJMenuBar(menuBar);
+    }
+
+    //This is the method that is called when the JButton btn is clicked
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("viewEntries")) {
+            System.out.println(journal.printEntries());
+        }
+        if (e.getActionCommand().equals("loadFile")) {
+            loadJournal();
+        }
+        if (e.getActionCommand().equals("saveFile")) {
+            saveJournal();
+        }
+        if (e.getActionCommand().equals("exitApplication")) {
+            System.exit(0);
+        }
+    }
+
+    // Centres frame on desktop
+    // modifies: this
+    // effects:  location of frame is set so frame is centred on desktop
+    private void centreOnScreen() {
+        Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
     // MODIFIES: this
