@@ -84,7 +84,7 @@ public class TravelJournalApp extends JFrame implements ActionListener {
     //This is the method that is called when the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("viewEntries")) {
-            output.setText(journal.printEntries());
+            System.out.println(journal.printEntries());
         }
         if (e.getActionCommand().equals("loadFile")) {
             loadJournal();
