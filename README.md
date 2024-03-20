@@ -33,3 +33,10 @@ to fill out the PR renewal application, hopefully it will also help others in th
 + As a user, I want to be able to save my travel journal to file (if I so choose)
 + As a user, I want to be able to load my travel journal from file (if I so choose)
 
+### Instructions for Grader
+
++ You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking the "Add Entry", then filling out the four required text fields (i.e. Departure Date, Return Date, Reason, and Destination), and then clicking the "Add" button.
++ You can generate the second required action related to the user story "deleting a travel entry frmo the journal" by clicking the "Edit Entry," then filling out the 5 required fields (i.e. Departure Date, Return Date, Reason, and Destination, and ID), and then clicking the "Edit" button.
++ You can locate my visual component by launching the Travel Journal application (it's on the Main Menu above the buttons).
++ You can save the state of my application by navigating to the top left of the Main Menu, clicking 'File' and then 'Save'.
++ You can reload the state of my application by navigating to the top left of the Main Menu, clicking 'File' and then 'Load'.
