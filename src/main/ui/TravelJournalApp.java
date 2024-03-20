@@ -15,7 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
+import java.util.Vector;
 
 // Travel Journal application
 // Some of this code/structure was used from the BankTeller/JsonSerializationDemo app JFYI!
@@ -26,35 +28,73 @@ public class TravelJournalApp extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
+    private JFrame inputWindow;
+
+    private JLabel depDate;
+    private JTextField textDepDate;
+    private JLabel retDate;
+    private JTextField textRetDate;
+    private JLabel dest;
+    private JTextField textDest;
+    private JLabel reason;
+    private JTextField textReason;
+    private JLabel inputID;
+    private JTextField textInputID;
+    private JPanel buttonPanel;
+
     public TravelJournalApp() throws FileNotFoundException {
         super("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(400, 334));
         setVisible(true);
+        setResizable(false);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBounds(0,250, 500, 250);
-        buttonPanel.setBackground(new Color(61, 66, 64));
-        buttonPanel.setLayout(null);
-        buttonPanel.getAlignmentX();
+        ImageIcon imageIcon = new ImageIcon("data/Travel log.png");
+        JLabel labelWithImage = new JLabel(imageIcon);
+        labelWithImage.setBounds(0, 0, 400, 250);
 
-        JButton viewEntriesButton = new JButton("View Entries");
-        viewEntriesButton.setFocusable(false);
-        viewEntriesButton.setBounds(175, 10, 150, 50);
-        buttonPanel.add(viewEntriesButton);
-
+        initButtonPanel();
+        createButtonPanelButtons();
         initMenuBar();
-
-
+        add(labelWithImage);
         add(buttonPanel);
-
         pack();
         centreOnScreen();
-
-
-
         runTravelJournal();
+    }
+
+    private void createButtonPanelButtons() {
+        JButton viewEntriesButton = new JButton("View Entries");
+        viewEntriesButton.setActionCommand("viewEntries");
+        viewEntriesButton.addActionListener(this);
+        viewEntriesButton.setFocusable(false);
+        buttonPanel.add(viewEntriesButton);
+
+        JButton addEntryButton = new JButton("Add Entry");
+        addEntryButton.setActionCommand("addEntry");
+        addEntryButton.addActionListener(this);
+        addEntryButton.setFocusable(false);
+        buttonPanel.add(addEntryButton);
+
+        JButton deleteEntryButton = new JButton("Delete Entry");
+        deleteEntryButton.setActionCommand("deleteEntry");
+        deleteEntryButton.addActionListener(this);
+        deleteEntryButton.setFocusable(false);
+        buttonPanel.add(deleteEntryButton);
+
+        JButton editEntryButton = new JButton("Edit Entry");
+        editEntryButton.setActionCommand("editEntry");
+        editEntryButton.addActionListener(this);
+        editEntryButton.setFocusable(false);
+        buttonPanel.add(editEntryButton);
+    }
+
+    private void initButtonPanel() {
+        buttonPanel = new JPanel();
+        buttonPanel.setBounds(0,250, 400, 50);
+        buttonPanel.setBackground(new Color(61, 66, 64));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     }
 
     private void initMenuBar() {
@@ -81,10 +121,13 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
     }
 
-    //This is the method that is called when the JButton btn is clicked
+    @SuppressWarnings("methodlength")
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("viewEntries")) {
-            System.out.println(journal.printEntries());
+            viewEntriesProcess();
+        }
+        if (e.getActionCommand().equals("addEntry")) {
+            addEntryProcess();
         }
         if (e.getActionCommand().equals("loadFile")) {
             loadJournal();
@@ -95,6 +138,211 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("exitApplication")) {
             System.exit(0);
         }
+        if (e.getActionCommand().equals("add")) {
+            triggerAddButtonClickProcess();
+        }
+        if (e.getActionCommand().equals("edit")) {
+            triggerEditButtonClickProcess();
+        }
+        if (e.getActionCommand().equals("editEntry")) {
+            editEntryProcess();
+        }
+        if (e.getActionCommand().equals("deleteEntry")) {
+            deleteEntryProcess();
+        }
+        if (e.getActionCommand().equals("delete")) {
+            triggerDeleteButtonClickProcess();
+        }
+    }
+
+    private void triggerDeleteButtonClickProcess() {
+        journal.deleteEntry(Integer.parseInt(textInputID.getText()));
+        inputWindow.dispose();
+    }
+
+    private void deleteEntryProcess() {
+        makeInputWindow();
+        makeInputIDLabelAndJTextField(10, 10);
+        makeDeleteButton();
+    }
+
+    private void makeDeleteButton() {
+        JButton addButton = new JButton("Delete");
+        addButton.setActionCommand("delete");
+        addButton.addActionListener(this);
+        addButton.setFocusable(false);
+        addButton.setBounds(100, 100, 150, 50);
+        inputWindow.add(addButton);
+    }
+
+    private void triggerEditButtonClickProcess() {
+        journal.editEntry(
+                Integer.parseInt(textInputID.getText()),
+                textDepDate.getText(),
+                textRetDate.getText(),
+                textReason.getText(),
+                textDest.getText());
+        inputWindow.dispose();
+    }
+
+    private void triggerAddButtonClickProcess() {
+        Entry userEntry = new Entry(textDepDate.getText(), textRetDate.getText(), textReason.getText(),
+                textDest.getText());
+        journal.addEntry(userEntry);
+        inputWindow.dispose();
+    }
+
+    private void viewEntriesProcess() {
+        JFrame entries = new JFrame();
+        entries.setTitle("Entry List");
+        entries.setSize(500, 500);
+        entries.setVisible(true);
+        createEntryListTable(entries);
+    }
+
+    private void editEntryProcess() {
+        makeInputWindow();
+        makeDepartureLabelAndJTextField();
+        makeReturnLabelAndJTextField();
+        makeDestinationLabelAndJTextField();
+        makeReasonLabelAndJTextField();
+        makeInputIDLabelAndJTextField(10, 210);
+        makeEditButton();
+    }
+
+    private void addEntryProcess() {
+        makeInputWindow();
+        makeDepartureLabelAndJTextField();
+        makeReturnLabelAndJTextField();
+        makeDestinationLabelAndJTextField();
+        makeReasonLabelAndJTextField();
+        makeAddButton();
+    }
+
+    private void createEntryListTable(JFrame entries) {
+        // Table column names
+        Vector<String> columnNames = new Vector<>();
+        columnNames.add("Entry ID");
+        columnNames.add("Departure Date");
+        columnNames.add("Return Date");
+        columnNames.add("Reason");
+        columnNames.add("Destination");
+
+        // Data for the table
+        Vector<Vector<Object>> data = new Vector<>();
+        for (Entry entry : journal.getEntries()) {
+            Vector<Object> row = new Vector<>();
+            row.add(entry.getEntryID());
+            row.add(entry.getDepartureDate());
+            row.add(entry.getReturnDate());
+            row.add(entry.getReason());
+            row.add(entry.getDestination());
+            data.add(row);
+        }
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model);
+
+        // Adding the table to a JScrollPane to have scroll bars
+        JScrollPane scrollPane = new JScrollPane(table);
+        entries.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private void makeInputIDLabelAndJTextField(int x, int y) {
+        inputID = new JLabel("ID: ");
+        inputID.setFont(new Font("Arial", Font.PLAIN, 20));
+        inputID.setSize(180, 20);
+        inputID.setLocation(x, y);
+        inputWindow.add(inputID);
+
+        textInputID = new JTextField("1");
+        textInputID.setFont(new Font("Arial", Font.PLAIN, 15));
+        textInputID.setSize(20, 20);
+        textInputID.setLocation(160, y);
+        inputWindow.add(textInputID);
+    }
+
+    private void makeEditButton() {
+        JButton editButton = new JButton("Edit");
+        editButton.setActionCommand("edit");
+        editButton.addActionListener(this);
+        editButton.setFocusable(false);
+        editButton.setBounds(230, 205, 80, 40);
+        inputWindow.add(editButton);
+    }
+
+    private void makeAddButton() {
+        JButton addButton = new JButton("Add");
+        addButton.setActionCommand("add");
+        addButton.addActionListener(this);
+        addButton.setFocusable(false);
+        addButton.setBounds(100, 200, 150, 50);
+        inputWindow.add(addButton);
+    }
+
+    private void makeInputWindow() {
+        inputWindow = new JFrame();
+        inputWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        inputWindow.setVisible(true);
+        inputWindow.setLayout(null);
+        inputWindow.setTitle("Input Window");
+        inputWindow.setSize(350, 300);
+    }
+
+    private void makeDepartureLabelAndJTextField() {
+        depDate = new JLabel("Departure Date:");
+        depDate.setFont(new Font("Arial", Font.PLAIN, 20));
+        depDate.setSize(180, 20);
+        depDate.setLocation(10, 10);
+        inputWindow.add(depDate);
+
+        textDepDate = new JTextField("YYYY-MM-DD");
+        textDepDate.setFont(new Font("Arial", Font.PLAIN, 15));
+        textDepDate.setSize(150, 20);
+        textDepDate.setLocation(160, 12);
+        inputWindow.add(textDepDate);
+    }
+
+    private void makeReturnLabelAndJTextField() {
+        retDate = new JLabel("Return Date:");
+        retDate.setFont(new Font("Arial", Font.PLAIN, 20));
+        retDate.setSize(180, 20);
+        retDate.setLocation(10, 60);
+        inputWindow.add(retDate);
+
+        textRetDate = new JTextField("YYYY-MM-DD");
+        textRetDate.setFont(new Font("Arial", Font.PLAIN, 15));
+        textRetDate.setSize(150, 20);
+        textRetDate.setLocation(160, 62);
+        inputWindow.add(textRetDate);
+    }
+
+    private void makeDestinationLabelAndJTextField() {
+        dest = new JLabel("Destination:");
+        dest.setFont(new Font("Arial", Font.PLAIN, 20));
+        dest.setSize(180, 20);
+        dest.setLocation(10, 110);
+        inputWindow.add(dest);
+
+        textDest = new JTextField("i.e. Mexico");
+        textDest.setFont(new Font("Arial", Font.PLAIN, 15));
+        textDest.setSize(150, 20);
+        textDest.setLocation(160, 112);
+        inputWindow.add(textDest);
+    }
+
+    private void makeReasonLabelAndJTextField() {
+        reason = new JLabel("Reason:");
+        reason.setFont(new Font("Arial", Font.PLAIN, 20));
+        reason.setSize(180, 20);
+        reason.setLocation(10, 160);
+        inputWindow.add(reason);
+
+        textReason = new JTextField("i.e. Pleasure");
+        textReason.setFont(new Font("Arial", Font.PLAIN, 15));
+        textReason.setSize(150, 20);
+        textReason.setLocation(160, 162);
+        inputWindow.add(textReason);
     }
 
     // Centres frame on desktop

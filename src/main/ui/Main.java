@@ -9,6 +9,5 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.out.print("Unable to run application: file not found");
         }
-
     }
 }
