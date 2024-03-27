@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-
 // Represents a Journal that stores Entries of absences from
 // the country. When instantiated, EntryList will create an empty List
 // that will store all of its entries.
@@ -45,11 +44,11 @@ public class EntryList implements Writable {
         Entry e = retrieveEntryByID(entryID);
         journal.remove(e);
         Entry.setTotalEntries(Entry.getTotalEntries() - 1);
+
         for (int i = entryID - 1; i < journal.size(); i++) {
             int oldEntryID = journal.get(i).getEntryID();
             journal.get(i).setEntryID(oldEntryID - 1);
         }
-
     }
 
     // REQUIRES: an entryID > 0 and one that exists
@@ -79,6 +78,7 @@ public class EntryList implements Writable {
         return null;
     }
 
+    // EFFECTS: constructs a new JSONObject and populates it with key-value pairs
     // NOTE: source: JsonSerializationDemo
     @Override
     public JSONObject toJson() {
@@ -99,6 +99,5 @@ public class EntryList implements Writable {
 
         return jsonArray;
     }
-
 }
 

@@ -64,6 +64,10 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         runTravelJournal();
     }
 
+    // REQUIRES: buttonPanel must be instantiated
+    // MODIFIES: buttonPanel
+    // EFFECTS: creates and adds four 'JButton' components to the buttonPanel
+    //          each button is configured with an action command string
     private void createButtonPanelButtons() {
         JButton viewEntriesButton = new JButton("View Entries");
         viewEntriesButton.setActionCommand("viewEntries");
@@ -90,6 +94,10 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         buttonPanel.add(editEntryButton);
     }
 
+    // MODIFIES: buttonPanel
+    // EFFECTS: initializes buttonPanel by setting it up with
+    //          specific dimensions, a background color, and a flow
+    //          layout to the left.
     private void initButtonPanel() {
         buttonPanel = new JPanel();
         buttonPanel.setBounds(0,250, 400, 50);
@@ -97,6 +105,9 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     }
 
+    // MODIFIES: menuBar
+    // EFFECTS: Creates and initializes the menuBar with a new JMenuBar.
+    //          Adds Load, Save, and Exit items.
     private void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -121,6 +132,11 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
     }
 
+    // REQUIRES: ActionEvent 'e' != null and should contain one of the below commands
+    // MODIFIES: modifies various components based on certain commands
+    // EFFECTS: interprets the action command from the provided event and triggers corresponding
+    //          helper method. Actions range from viewing entries to adding new entries to saving files,
+    //          and exiting the application.
     @SuppressWarnings("methodlength")
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("viewEntries")) {
@@ -155,26 +171,36 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         }
     }
 
+    // REQUIRES: textInputID exists
+    // MODIFIES: journal and inputWindow
+    // EFFECTS: deletes entry from journal and closes input window
     private void triggerDeleteButtonClickProcess() {
         journal.deleteEntry(Integer.parseInt(textInputID.getText()));
         inputWindow.dispose();
     }
 
+    // REQUIRES: delete entry button pressed
+    // EFFECTS: creates instance of input window allowing user to delete entry
     private void deleteEntryProcess() {
         makeInputWindow();
         makeInputIDLabelAndJTextField(10, 10);
         makeDeleteButton();
     }
 
+    // MODIFIES: inputWindow & delButton
+    // EFFECTS: creates delete button and adds it to inputWindow
     private void makeDeleteButton() {
-        JButton addButton = new JButton("Delete");
-        addButton.setActionCommand("delete");
-        addButton.addActionListener(this);
-        addButton.setFocusable(false);
-        addButton.setBounds(100, 100, 150, 50);
-        inputWindow.add(addButton);
+        JButton delButton = new JButton("Delete");
+        delButton.setActionCommand("delete");
+        delButton.addActionListener(this);
+        delButton.setFocusable(false);
+        delButton.setBounds(100, 100, 150, 50);
+        inputWindow.add(delButton);
     }
 
+    // REQUIRES: textInputID exists
+    // MODIFIES: journal and inputWindow
+    // EFFECTS: edits entry from journal and closes input window
     private void triggerEditButtonClickProcess() {
         journal.editEntry(
                 Integer.parseInt(textInputID.getText()),
@@ -185,6 +211,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.dispose();
     }
 
+    // MODIFIES: journal and inputWindow
+    // EFFECTS: adds entry from journal and closes input window
     private void triggerAddButtonClickProcess() {
         Entry userEntry = new Entry(textDepDate.getText(), textRetDate.getText(), textReason.getText(),
                 textDest.getText());
@@ -192,6 +220,9 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.dispose();
     }
 
+    // REQUIRES: view entries button clicked
+    // MODIFIES: entries
+    // EFFECTS: creates new entries window displays entries
     private void viewEntriesProcess() {
         JFrame entries = new JFrame();
         entries.setTitle("Entry List");
@@ -200,6 +231,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         createEntryListTable(entries);
     }
 
+    // REQUIRES: edit entry button pressed
+    // EFFECTS: creates instance of input window allowing user to edit entry
     private void editEntryProcess() {
         makeInputWindow();
         makeDepartureLabelAndJTextField();
@@ -210,6 +243,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         makeEditButton();
     }
 
+    // REQUIRES: add entry button pressed
+    // EFFECTS: creates instance of input window allowing user to add entry
     private void addEntryProcess() {
         makeInputWindow();
         makeDepartureLabelAndJTextField();
@@ -219,6 +254,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         makeAddButton();
     }
 
+    // MODIFIES: entries
+    // EFFECTS: creates table of all entries in journal
     private void createEntryListTable(JFrame entries) {
         // Table column names
         Vector<String> columnNames = new Vector<>();
@@ -248,6 +285,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         entries.add(scrollPane, BorderLayout.CENTER);
     }
 
+    // MODIFIES: inputID and textInputID
+    // EFFECTS: creates inputID and textInputID label and textfield
     private void makeInputIDLabelAndJTextField(int x, int y) {
         inputID = new JLabel("ID: ");
         inputID.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -262,6 +301,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.add(textInputID);
     }
 
+    // MODIFIES: inputWindow & editButton
+    // EFFECTS: creates edit button and adds it to inputWindow
     private void makeEditButton() {
         JButton editButton = new JButton("Edit");
         editButton.setActionCommand("edit");
@@ -271,6 +312,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.add(editButton);
     }
 
+    // MODIFIES: inputWindow & addButton
+    // EFFECTS: creates add button and adds it to inputWindow
     private void makeAddButton() {
         JButton addButton = new JButton("Add");
         addButton.setActionCommand("add");
@@ -280,6 +323,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.add(addButton);
     }
 
+    // MODIFIES: inputWindow
+    // EFFECTS: creates new input window
     private void makeInputWindow() {
         inputWindow = new JFrame();
         inputWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -289,6 +334,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.setSize(350, 300);
     }
 
+    // MODIFIES: depDate and textDepDate
+    // EFFECTS: creates depDate and textDepDate label and textfield
     private void makeDepartureLabelAndJTextField() {
         depDate = new JLabel("Departure Date:");
         depDate.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -303,6 +350,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.add(textDepDate);
     }
 
+    // MODIFIES: retDate and textRetDate
+    // EFFECTS: creates retDate and textRetDate label and textfield
     private void makeReturnLabelAndJTextField() {
         retDate = new JLabel("Return Date:");
         retDate.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -317,6 +366,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.add(textRetDate);
     }
 
+    // MODIFIES: dest and textDest
+    // EFFECTS: creates dest and textDest label and textfield
     private void makeDestinationLabelAndJTextField() {
         dest = new JLabel("Destination:");
         dest.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -331,6 +382,8 @@ public class TravelJournalApp extends JFrame implements ActionListener {
         inputWindow.add(textDest);
     }
 
+    // MODIFIES: reason and textReason
+    // EFFECTS: creates reason and textReason label and textfield
     private void makeReasonLabelAndJTextField() {
         reason = new JLabel("Reason:");
         reason.setFont(new Font("Arial", Font.PLAIN, 20));

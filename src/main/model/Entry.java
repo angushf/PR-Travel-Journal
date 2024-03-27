@@ -91,6 +91,7 @@ public class Entry implements Writable {
                 + " Reason: "      + this.getReason() + "\n";
     }
 
+    // EFFECTS: constructs a new JSONObject and populates it with key-value pairs
     // NOTE: source: JsonSerializationDemo
     @Override
     public JSONObject toJson() {
