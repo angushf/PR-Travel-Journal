@@ -137,36 +137,26 @@ public class TravelJournalApp extends JFrame implements ActionListener {
     // EFFECTS: interprets the action command from the provided event and triggers corresponding
     //          helper method. Actions range from viewing entries to adding new entries to saving files,
     //          and exiting the application.
-    @SuppressWarnings("methodlength")
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("viewEntries")) {
             viewEntriesProcess();
-        }
-        if (e.getActionCommand().equals("addEntry")) {
+        } else if (e.getActionCommand().equals("addEntry")) {
             addEntryProcess();
-        }
-        if (e.getActionCommand().equals("loadFile")) {
+        } else if (e.getActionCommand().equals("loadFile")) {
             loadJournal();
-        }
-        if (e.getActionCommand().equals("saveFile")) {
+        } else if (e.getActionCommand().equals("saveFile")) {
             saveJournal();
-        }
-        if (e.getActionCommand().equals("exitApplication")) {
+        } else if (e.getActionCommand().equals("exitApplication")) {
             System.exit(0);
-        }
-        if (e.getActionCommand().equals("add")) {
+        } else if (e.getActionCommand().equals("add")) {
             triggerAddButtonClickProcess();
-        }
-        if (e.getActionCommand().equals("edit")) {
+        } else if (e.getActionCommand().equals("edit")) {
             triggerEditButtonClickProcess();
-        }
-        if (e.getActionCommand().equals("editEntry")) {
+        } else if (e.getActionCommand().equals("editEntry")) {
             editEntryProcess();
-        }
-        if (e.getActionCommand().equals("deleteEntry")) {
+        } else if (e.getActionCommand().equals("deleteEntry")) {
             deleteEntryProcess();
-        }
-        if (e.getActionCommand().equals("delete")) {
+        } else if (e.getActionCommand().equals("delete")) {
             triggerDeleteButtonClickProcess();
         }
     }
