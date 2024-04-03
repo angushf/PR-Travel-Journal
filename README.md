@@ -61,3 +61,18 @@ Examples of the events that occur when the program runs. These are printed out a
 
 
 + Wed Apr 03 10:53:21 PDT 2024 <br> Journal entries viewed
+
+### Phase 4: Task 3
+
+If I had to refactor the application, I would refactor the Entry class to incorporate the Singleton Design Pattern 
+for unique ID generation. I would need to create a separate Singleton class, perhaps named UniqueIdGenerator, which would 
+be responsible solely for generating and providing unique IDs. This class would maintain a private static variable that 
+holds the last assigned ID and provide a public static method to get the next ID, ensuring thread safety with appropriate 
+synchronization mechanisms.
+
+Within the Entry class, instead of generating an ID on object creation, you would call the UniqueIdGenerator.getNextId() method 
+to assign a unique ID to each new Entry instance. This ensures that the responsibility of ID generation is encapsulated within 
+the UniqueIdGenerator, adhering to the Single Responsibility Principle. The Entry class no longer needs to know about the mechanics of ID 
+generation, it just needs to request the next available ID. This separation of concerns not only makes the Entry class cleaner 
+but also makes the system more maintainable and less prone to errors related to ID generation, especially in concurrent scenarios 
+where multiple Entry instances may be created simultaneously.
