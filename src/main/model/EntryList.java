@@ -21,10 +21,12 @@ public class EntryList implements Writable {
     // EFFECTS: adds entry object to journal
     public void addEntry(Entry entry) {
         journal.add(entry);
+        EventLog.getInstance().logEvent(new Event("Entry added to travel journal"));
     }
 
     // EFFECTS: returns a list of entries in journal
     public List<Entry> getEntries() {
+        EventLog.getInstance().logEvent(new Event("Journal entries viewed"));
         return this.journal;
     }
 
@@ -49,6 +51,7 @@ public class EntryList implements Writable {
             int oldEntryID = journal.get(i).getEntryID();
             journal.get(i).setEntryID(oldEntryID - 1);
         }
+        EventLog.getInstance().logEvent(new Event("Entry ID #" + entryID + " deleted"));
     }
 
     // REQUIRES: an entryID > 0 and one that exists
@@ -60,6 +63,7 @@ public class EntryList implements Writable {
         e.setReturnDate(ret);
         e.setDestination(dest);
         e.setReason(reason);
+        EventLog.getInstance().logEvent(new Event("Entry ID #" + entryID + " modified"));
     }
 
     // EFFECTS: returns number of entries in journal

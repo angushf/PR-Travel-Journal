@@ -42,6 +42,7 @@ public class TravelJournalApp extends JFrame implements ActionListener {
     private JTextField textInputID;
     private JPanel buttonPanel;
 
+
     public TravelJournalApp() throws FileNotFoundException {
         super("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

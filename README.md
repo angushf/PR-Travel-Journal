@@ -40,3 +40,24 @@ to fill out the PR renewal application, hopefully it will also help others in th
 + You can locate my visual component by launching the Travel Journal application (it's on the Main Menu above the buttons).
 + You can save the state of my application by navigating to the top left of the Main Menu, clicking 'File' and then 'Save'.
 + You can reload the state of my application by navigating to the top left of the Main Menu, clicking 'File' and then 'Load'.
+
+### Phase 4: Task 2
+
+Examples of the events that occur when the program runs. These are printed out after the program terminates.
+
++ Wed Apr 03 10:51:51 PDT 2024 <br> Entry added to travel journal
+
+
++ Wed Apr 03 10:52:15 PDT 2024 <br>Entry added to travel journal
+
+
++ Wed Apr 03 10:52:43 PDT 2024 <br> Entry added to travel journal
+
+
++ Wed Apr 03 10:52:49 PDT 2024 <br> Journal entries viewed
+
+
++ Wed Apr 03 10:53:18 PDT 2024 <br> Entry ID #3 modified
+
+
++ Wed Apr 03 10:53:21 PDT 2024 <br> Journal entries viewed
