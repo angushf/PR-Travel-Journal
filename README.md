@@ -5,6 +5,13 @@
 ---
 
 
+<div align="center">
+  <img src="main-menu.png" width="500" height="400">
+</div>
+<br>
+
+
+
 **What will the application do?**
 
 - The travel journal application will allow people to record their trips outside Canada or any other country.  
@@ -41,7 +48,7 @@ to fill out the PR renewal application, hopefully it will also help others in th
 + You can save the state of my application by navigating to the top left of the Main Menu, clicking 'File' and then 'Save'.
 + You can reload the state of my application by navigating to the top left of the Main Menu, clicking 'File' and then 'Load'.
 
-### Phase 4: Task 2
+### Examples of Logs
 
 Examples of the events that occur when the program runs. These are printed out after the program terminates.
 
@@ -62,7 +69,7 @@ Examples of the events that occur when the program runs. These are printed out a
 
 + Wed Apr 03 10:53:21 PDT 2024 <br> Journal entries viewed
 
-### Phase 4: Task 3
+### Thoughts on what I would do differently next time
 
 If I had to refactor the application, I would refactor the Entry class to incorporate the Singleton Design Pattern 
 for unique ID generation. I would need to create a separate Singleton class, perhaps named UniqueIdGenerator, which would 
